@@ -1,0 +1,215 @@
+<!-- This is the HTML file for the food delivery order form -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Delivery Order Form</title>
+    <!-- Link to the external CSS file -->
+    <style>
+        /* This is the CSS file for the food delivery order form */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.form-group {
+    margin: 10px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input, select, button {
+    display: block;
+    width: 100%;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="radio"] {
+    display: inline-block;
+    width: auto;
+    height: auto;
+}
+
+button {
+    margin-top: 10px;
+    background-color: #5f5d5d;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #757171;
+}
+
+    </style>
+    <!-- Link to the external JavaScript file -->
+    <script>
+        // This is the JavaScript file for the food delivery order form
+// Get the form element by its id
+var form = document.getElementById("order-form");
+
+// Define a function to validate the form inputs
+function validateForm() {
+    // Get the form inputs by their id
+    var name = document.getElementById("name");
+    var phone = document.getElementById("phone");
+    var address = document.getElementById("address");
+    var food = document.getElementById("food");
+    var quantity = document.getElementById("quantity");
+    var payment = document.getElementsByName("payment");
+
+    // Define a regular expression for phone number validation
+    var phoneRegex = /^\d{10}$/;
+
+    // Check if the name input is empty
+    if (name.value == "") {
+        // Display an alert message
+        alert("Please enter your name");
+        // Focus on the name input
+        name.focus();
+        // Return false to prevent form submission
+        return false;
+    }
+
+    // Check if the phone input is empty or does not match the phone regex
+    if (phone.value == "" || !phoneRegex.test(phone.value)) {
+        // Display an alert message
+        alert("Please enter a valid 10-digit phone number");
+        // Focus on the phone input
+        phone.focus();
+        // Return false to prevent form submission
+        return false;
+    }
+
+    // Check if the address input is empty
+    if (address.value == "") {
+        // Display an alert message
+        alert("Please enter your delivery address");
+        // Focus on the address input
+        address.focus();
+        // Return false to prevent form submission
+        return false;
+    }
+
+    // Check if the food input is empty
+    if (food.value == "") {
+        // Display an alert message
+        alert("Please select a food item");
+        // Focus on the food input
+        food.focus();
+        // Return false to prevent form submission
+        return false;
+    }
+
+    // Check if the quantity input is empty or out of range
+    if (quantity.value == "" || quantity.value < 1 || quantity.value > 10) {
+        // Display an alert message
+        alert("Please enter a valid quantity between 1 and 10");
+        // Focus on the quantity input
+        quantity.focus();
+        // Return false to prevent form submission
+        return false;
+    }
+    
+    // Define a variable to store the payment option
+    var paymentOption = "";
+
+    // Loop through the payment radio buttons
+    for (var i = 0; i < payment.length; i++) {
+        // Check if the current radio button is checked
+        if (payment[i].checked) {
+            // Assign the value of the checked radio button to the payment option variable
+            paymentOption = payment[i].value;
+            // Break out of the loop
+            break;
+        }
+    }
+
+    // Check if the payment option is empty
+    if (paymentOption == "") {
+        // Display an alert message
+        alert("Please select a payment option");
+        // Return false to prevent form submission
+        return false;
+    }
+
+    // Display a confirmation message with the order details
+    alert("Your order has been placed successfully!\n\nName: " + name.value + "\nPhone: " + phone.value + "\nAddress: " + address.value + "\nFood: " + food.value + "\nQuantity: " + quantity.value + "\nPayment: " + paymentOption);
+
+    // Return true to allow form submission
+    return true;
+}
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Place your order Here</h1>
+        <form id="order-form" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" placeholder="Enter your delivery address" required>
+            </div>
+            <div class="form-group">
+                <label for="food">Food:</label>
+                <select id="food" name="food" required>
+                    <option value="" disabled selected>Select a food item</option>
+                    <option value="pizza">Pizza</option>
+                    <option value="burger">Burger</option>
+                    <option value="cake">cake</option>
+                    <option value="salad">Salad</option>
+                    <option value="biryani">Biryani</option>
+                    <option value="noodles">Noodles</option>
+                    <option value="gulabjamun">GulabJamun</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" min="1" max="10" value="1" required>
+            </div>
+            <div class="form-group">
+                <label for="payment">Payment:</label>
+                <input type="radio" id="cash" name="payment" value="cash" checked>
+                <label for="cash">Cash on delivery</label>
+                <input type="radio" id="card" name="payment" value="card">
+                <label for="card">Credit/Debit card</label>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit"  onclick="validateLogin()">Place order</button>
+                <button type="reset" id="reset">Reset form</button>
+           <button><a href="./index.html">Home</a></button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
